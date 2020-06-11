@@ -14,6 +14,8 @@ def intcode(arr, code_position):
 if __name__ == "__main__":
     noun = 0
     verb = 0
+    # Number 1 and 2 are between 1 and 99
+    # Testing each combination until i find the inputs that equals the output 19690720
     for number1 in range(1,100):
         for number2 in range(1, 100):
             with open('./input.txt', 'r') as f:
