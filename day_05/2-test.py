@@ -6,19 +6,19 @@ def intcode(arr, code_position, number_input=0):
     parameters = get_parameters(arr, code_position, parameters_mode, opcode)
 
     if opcode == 1:
-        arr[arr[code_position+3]] = parameters[0] + parameters[1]
+        arr[arr[code_position + 3]] = parameters[0] + parameters[1]
         position = code_position + 4
         
     elif opcode == 2:
-        arr[arr[code_position+3]] = parameters[0] * parameters[1]
+        arr[arr[code_position + 3]] = parameters[0] * parameters[1]
         position = code_position + 4
         
     elif opcode == 3:
-        arr[arr[code_position+1]] = number_input
+        arr[arr[code_position + 1]] = number_input
         position = code_position + 2
         
     elif opcode == 4:
-        print(arr[arr[code_position+1]])
+        print(arr[arr[code_position + 1]])
         position = code_position + 2
         
     elif opcode == 5:
@@ -35,17 +35,17 @@ def intcode(arr, code_position, number_input=0):
 
     elif opcode == 7:
         if parameters[0] < parameters[1]:
-            arr[arr[code_position+3]] = 1
+            arr[arr[code_position + 3]] = 1
         else:
-            arr[arr[code_position+3]] = 0
+            arr[arr[code_position + 3]] = 0
 
         position = code_position + 4
 
     elif opcode == 8:
         if parameters[0] == parameters[1]:
-            arr[arr[code_position+3]] = 1
+            arr[arr[code_position + 3]] = 1
         else:
-            arr[arr[code_position+3]] = 0
+            arr[arr[code_position + 3]] = 0
 
         position = code_position + 4
         
@@ -56,27 +56,30 @@ def get_opcode(code):
     if code < 10:
         return code, []
     else:
+        opcode = code%10
         code_list = [int(x) for x in str(code)]
-        code = str(code_list.pop(-2))
-        code += str(code_list.pop(-1))
-        return int(code), code_list
+        code_list.pop(-1)
+        code_list.pop(-1)
+ 
+        return opcode, code_list
 
 def get_parameters(arr,code_position, parameters_mode, opcode):
     parameters = list()
 
     if not parameters_mode:
         if opcode in [1, 2, 5, 6, 7, 8]:
-            parameters.append(arr[arr[code_position+1]])
-            parameters.append(arr[arr[code_position+2]])
+            parameters.append(arr[arr[code_position + 1]])
+            parameters.append(arr[arr[code_position + 2]])
 
     else:
         for x in range(len(parameters_mode)):
-            if parameters_mode[-(x+1)] == 1:
-                parameters.append(arr[code_position+x+1])
+            x += 1
+            if parameters_mode[-x] == 1:
+                parameters.append(arr[code_position + x])
             else:
-                parameters.append(arr[arr[code_position+x+1]])
+                parameters.append(arr[arr[code_position + x]])
         if len(parameters) < 2 and opcode != 4:
-            parameters.append(arr[arr[code_position+2]])
+            parameters.append(arr[arr[code_position + 2]])
 
     return parameters
 
