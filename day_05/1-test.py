@@ -51,6 +51,6 @@ def get_parameters(arr,code_position, parameters_mode, opcode):
 
 if __name__ == "__main__":
     number_input = input("Give me a number: ")
-    with open('day_05/input.txt', 'r') as f:
+    with open('./input.txt', 'r') as f:
         arr = [int(x) for x in f.readline().split(',')]
         arr = intcode(arr, 0, int(number_input))

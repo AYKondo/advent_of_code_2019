@@ -1,6 +1,6 @@
-def intcode(arr, code_position):
+def intcode(arr, code_position, number_input):
     if arr[code_position] == 99:
-        return arr
+        return arr, number_input[1]
 
     opcode, parameters_mode = get_opcode(arr[code_position])
     parameters = get_parameters(arr, code_position, parameters_mode, opcode)
@@ -14,13 +14,18 @@ def intcode(arr, code_position):
         position = code_position + 4
         
     elif opcode == 3:
-        number_input = input("Give me a number: ")
-        arr[arr[code_position + 1]] = int(number_input)
+        if number_input[0] != -1:
+            arr[arr[code_position + 1]] = number_input[0]
+            number_input[0] = -1
+        else:
+            arr[arr[code_position + 1]] = number_input[1]
+
         position = code_position + 2
         
     elif opcode == 4:
-        print(arr[arr[code_position + 1]])
+        # print(arr[arr[code_position + 1]])
         position = code_position + 2
+        number_input[1] = arr[arr[code_position + 1]]
         
     elif opcode == 5:
         if parameters[0] != 0:
@@ -50,7 +55,7 @@ def intcode(arr, code_position):
 
         position = code_position + 4
         
-    arr = intcode(arr, position)
+    arr = intcode(arr, position, number_input)
     return arr
 
 def get_opcode(code):
@@ -84,8 +89,15 @@ def get_parameters(arr,code_position, parameters_mode, opcode):
 
     return parameters
 
-
+from itertools import permutations 
 if __name__ == "__main__":
     with open('./input.txt', 'r') as f:
         arr = [int(x) for x in f.readline().split(',')]
-        arr = intcode(arr, 0)
+        thruster = []
+        for perm in permutations([0, 1, 2, 3, 4]):
+            initial_input = 0
+            for phase in perm:
+                final_program, initial_input = intcode(arr, 0, [phase, initial_input])
+            thruster.append(initial_input)
+
+        print(sorted(thruster)[-1])

@@ -73,7 +73,7 @@ class Orbit:
 
 if __name__ == "__main__":
     orbits = OrbitsList()
-    with open('day_06/input.txt', 'r') as f:
+    with open('./input.txt', 'r') as f:
         for line in f:
             line_orbits = line.replace('\n', '').split(")")
             orbit_1 = line_orbits[0]
