@@ -8,3 +8,4 @@ Advent of code 2019 challenge
 #### Day 5: Sunny with a Chance of Asteroid - [Solution](https://github.com/AYKondo/advent_of_code_2019/tree/master/day_05)
 #### Day 6: Secure Container - [Solution](https://github.com/AYKondo/advent_of_code_2019/tree/master/day_06)
 #### Day 7: Amplification Circuit - [Solution](https://github.com/AYKondo/advent_of_code_2019/tree/master/day_07)
+#### Day 8: Space Image Format - [Solution](https://github.com/AYKondo/advent_of_code_2019/tree/master/day_08)
